@@ -1,5 +1,3 @@
-
-
 window.addEventListener('load',function() {
 
   var users = [{user: "ana",password: "00"}];  //array de objetos
@@ -17,15 +15,17 @@ window.addEventListener('load',function() {
       if (user == "" && password == "") {
         errorUser.innerHTML = "Falta ingresar usuario";
         errorPassword.innerHTML = "Falta ingresar password";
+        user.focus();
 
       }else {
         if(user == ""){
           errorUser.innerHTML = "Falta ingresar usuario";
           errorPassword.innerHTML = "";
-
+          user.focus();
         }else{
           errorUser.innerHTML = "";
           errorPassword.innerHTML = "Falta ingresar password";
+          password.focus();
         }
       }
     }else{
@@ -33,23 +33,19 @@ window.addEventListener('load',function() {
       users.forEach(function(item){
         if(item.user == user){
           if(item.password == password ){
-              link.href = "index2.html?nombre="+user;
-
+              document.location = "index2.html?nombre="+user;
           }else{
             errorUser.innerHTML = "";
             errorPassword.innerHTML = "Password incorrecto";
+            password.focus();
           }
 
         }else{
           errorUser.innerHTML = "Usuario no existe";
           errorPassword.innerHTML = "";
-
+          user.focus();
         }
       })
-
-
-
-
     }
 
   });
