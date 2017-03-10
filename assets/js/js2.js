@@ -1,7 +1,6 @@
 window.addEventListener('load',function() {
 
-
-var muro = [{user: "ana", publicaciones: [{estado: 1, comentario:"hola"},{estado: 0,comentario:"que"}]}];
+var muro = [{user: "ana", publicaciones: [{estado: 1, id: 0, comentario:"hola"},{estado: 0, id: 1,comentario:"que"}]}];
 
 var user = location.search.split('&')[1];
 
@@ -40,23 +39,19 @@ amigos.addEventListener("click", function(ev){
   frase = "";
   muroUser[0].publicaciones.forEach(function(item,i){
         if(item.estado == 0){
-          frase += "<div class = ''>" +
-                    item.comentario +
-                    "<br><br>" +
-                    "</div>";
+          publicaciones.appendChild(createPost(item.comentario));
         }
   });
-  publicaciones.innerHTML = frase;
 
 });
 
 
-function createPost(texto) {
+function createPost(txt) {
 
 
       var post = document.createElement('div');
       var texto = document.createElement('p');
-      texto.innerHTML = texto;
+      texto.innerHTML = txt;
       var editar = document.createElement('a');
       var eliminar = document.createElement('a');
       editar.innerHTML = "Editar";
@@ -67,10 +62,13 @@ function createPost(texto) {
         e.preventDefault();
         var postParent = e.target.parent; // Devuelve el padre
 
+
+
       });
       eliminar.addEventListener('click',function(e) {
         e.preventDefault();
         var postParent = e.target.parent; // Devuelve el padre
+        muroUser[0].publicaciones
       });
 
       post.appendChild(texto);
@@ -79,42 +77,33 @@ function createPost(texto) {
       return post;
 
 
-
   }
 
   post.addEventListener("click", function(e){
     e.preventDefault();
-    var texto = document.getElementById("texto").value;
-    if(texto == ""){
+    var estado = document.getElementById("estado").value;
+    var texto = document.getElementById("texto");
+    var txt = texto.value;
+    if(texto.value == ""){
       alert("Falta ingresar texto");
     }else{
-      nuevoPost(texto);
-      publicaciones.appendChild(createPost(texto));
-      texto.innerHTML = "";
-
+      var tamano = muroUser[0].publicaciones.length;
+      var postNuevo = new NuevoPost(estado,txt, tamano);
+      muroUser[0].publicaciones.push(postNuevo);
+      publicaciones.appendChild(createPost(txt));
+      texto.value = "";
     }
 
 
   });
 
-  function nuevoPost(texto){
-
-    muroUser[0].publicaciones
-
+  function NuevoPost(estado, texto, tamano){
+    this.estado = estado;
+    this.id = tamano-1;
+    this.comentario = texto;
   }
 
-  function CrearMuro(id){
 
-    muroUser = muro.filter(function(items,j){
-                       return items.user == "ana";
-                      });
-    if(muroUser.length == 0){
-
-
-    }
-
-
-  }
 
 
 
