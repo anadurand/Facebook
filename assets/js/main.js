@@ -56,3 +56,16 @@ window.addEventListener('load',function() {
 
   });
 });
+
+//aqui pueden ir funciones generales
+//authenticate(emailInput.value,passwordInput.value)    window.location = "index2.html"
+function authenticate(email,password){
+  var validUsers = getItemStorage("valid-users");
+  if(validUsers != null){
+    var user = validUsers.filter(function(user){
+      retun user.emaul == email;
+    })[0];
+  return user != undefined && user.password == password;
+  }
+  return false;
+}

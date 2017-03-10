@@ -22,21 +22,17 @@ var frase = "";
 
 publico.addEventListener("click", function(ev){
   ev.preventDefault();
-  frase = "";
+  publicaciones.innerHTML = "";
   muroUser[0].publicaciones.forEach(function(item,i){
         if(item.estado == 1){
-          frase += "<div class = ''>" +
-                    item.comentario +
-                    "<br><br>" +
-                    "</div>";
+          publicaciones.appendChild(createPost(item.comentario));
         }
   });
-  publicaciones.innerHTML = frase;
 });
 
 amigos.addEventListener("click", function(ev){
   ev.preventDefault();
-  frase = "";
+  publicaciones.innerHTML = "";
   muroUser[0].publicaciones.forEach(function(item,i){
         if(item.estado == 0){
           publicaciones.appendChild(createPost(item.comentario));
@@ -56,12 +52,27 @@ function createPost(txt) {
       var eliminar = document.createElement('a');
       editar.innerHTML = "Editar";
       editar.href = "";
+      editar.setAtribute("data-toggle",false);
+      //editar.setAtribute("href","#");
       eliminar.innerHTML = "Eliminar";
       eliminar.href = "";
       editar.addEventListener("click", function(e){
         e.preventDefault();
         var postParent = e.target.parent; // Devuelve el padre
+        if(e.target.getAtribute("data-toggle")=="false"){
+          e.target.innerHTML = "Guardar";
+          e.target.setAtribute("data-toggle", true);
+          var editTextArea = document.createElement("textarea");
+          editTextArea.value = p.innerHTML;
+          post.prepend(editTextArea);
+          post.insertBefore(document.createElement("br"))
+          post.remove
+        }else{
 
+          e.target.innerHTML = "Editar";
+          e.target.setAtribute("data-toggle", false);
+
+        }
 
 
       });
